@@ -71,7 +71,7 @@ def login():
     session["user_id"] = user["id"]
     session["user_name"] = user["name"]
 
-    return redirect(url_for("landing"))
+    return redirect(url_for("profile"))
 
 
 @app.route("/terms")
@@ -96,7 +96,41 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    return "Profile page — coming in Step 4"
+    if not session.get("user_id"):
+        return redirect(url_for("login"))
+
+    user_name = session.get("user_name", "Alex Johnson")
+    user = {
+        "name": user_name,
+        "initials": "".join(p[0].upper() for p in user_name.split()[:2]),
+        "email": "alex@example.com",
+        "member_since": "January 2024",
+    }
+
+    stats = {
+        "total_spent": "₹12,450.00",
+        "transaction_count": 28,
+        "top_category": "Food & Dining",
+    }
+
+    transactions = [
+        {"date": "01 Jun 2025", "description": "Grocery Store",       "category": "food",          "label": "Food & Dining", "amount": "₹1,240.00"},
+        {"date": "30 May 2025", "description": "Netflix Subscription", "category": "entertainment", "label": "Entertainment", "amount": "₹649.00"},
+        {"date": "28 May 2025", "description": "Electricity Bill",     "category": "utilities",     "label": "Utilities",     "amount": "₹2,100.00"},
+        {"date": "26 May 2025", "description": "Uber Ride",            "category": "transport",     "label": "Transport",     "amount": "₹320.00"},
+        {"date": "24 May 2025", "description": "Medical Checkup",      "category": "health",        "label": "Health",        "amount": "₹800.00"},
+    ]
+
+    categories = [
+        {"name": "Food & Dining", "slug": "food",          "amount": "₹4,820.00", "pct": 39},
+        {"name": "Utilities",     "slug": "utilities",     "amount": "₹3,200.00", "pct": 26},
+        {"name": "Entertainment", "slug": "entertainment", "amount": "₹1,948.00", "pct": 16},
+        {"name": "Transport",     "slug": "transport",     "amount": "₹1,282.00", "pct": 10},
+        {"name": "Health",        "slug": "health",        "amount": "₹1,200.00", "pct":  9},
+    ]
+
+    return render_template("profile.html", user=user, stats=stats,
+                           transactions=transactions, categories=categories)
 
 
 @app.route("/expenses/add")
