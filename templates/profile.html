@@ -22,6 +22,45 @@
         </div>
     </div>
 
+    <!-- Date Range Filter -->
+    <div class="profile-filter-bar">
+        <form method="get" action="{{ url_for('profile') }}" class="filter-form">
+            <div class="filter-presets">
+                <a href="{{ quick_filter_urls.all_time }}"      class="filter-preset{{ ' filter-preset--active' if active_preset == 'all_time' }}">All Time</a>
+                <a href="{{ quick_filter_urls.this_month }}"    class="filter-preset{{ ' filter-preset--active' if active_preset == 'this_month' }}">This Month</a>
+                <a href="{{ quick_filter_urls.last_3_months }}" class="filter-preset{{ ' filter-preset--active' if active_preset == 'last_3_months' }}">Last 3 Months</a>
+                <a href="{{ quick_filter_urls.last_6_months }}" class="filter-preset{{ ' filter-preset--active' if active_preset == 'last_6_months' }}">Last 6 Months</a>
+            </div>
+            <div class="filter-divider"></div>
+            <div class="filter-fields">
+                <div class="filter-field">
+                    <label for="from" class="filter-label">From</label>
+                    <input type="date" id="from" name="from" class="filter-input" value="{{ from_val if active_preset == 'custom' else '' }}">
+                </div>
+                <div class="filter-field">
+                    <label for="to" class="filter-label">To</label>
+                    <input type="date" id="to" name="to" class="filter-input" value="{{ to_val if active_preset == 'custom' else '' }}">
+                </div>
+                <button type="submit" class="filter-btn">
+                    <i data-lucide="filter"></i>
+                    Apply
+                </button>
+            </div>
+        </form>
+        {% if date_error %}
+        <p class="filter-warning">"From" date must be on or before "To" date.</p>
+        {% endif %}
+        {% if active_preset == 'custom' %}
+        <div class="filter-active-badge">
+            <i data-lucide="calendar-range"></i>
+            Showing {{ from_val_display }} to {{ to_val_display }}
+            <a href="{{ url_for('profile') }}" class="filter-clear-link">
+                <i data-lucide="x"></i> Clear
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
     <!-- Summary Stats -->
     <div class="profile-stats-grid">
         <div class="stat-card profile-stat-card">
