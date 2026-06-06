@@ -23,6 +23,7 @@
                 <a href="{{ url_for('profile') }}"{% if request.endpoint == 'profile' %} class="nav-link--active"{% endif %}>Profile</a>
                 <a href="{{ url_for('analytics') }}"{% if request.endpoint == 'analytics' %} class="nav-link--active"{% endif %}>Analytics</a>
                 <span class="nav-user">Hi, {{ session.user_name }}</span>
+                <a href="{{ url_for('add_expense') }}" class="nav-cta nav-cta--add">+ Add expense</a>
                 <a href="{{ url_for('logout') }}" class="nav-cta">Sign out</a>
                 {% else %}
                 <a href="{{ url_for('login') }}">Sign in</a>
@@ -33,6 +34,15 @@
     </nav>
 
     <main class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-container">
+            {% for category, message in messages %}
+            <div class="flash flash--{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
         {% block content %}{% endblock %}
     </main>
 
