@@ -80,59 +80,64 @@
         </div>
     </div>
 
-    <!-- Transaction History -->
-    <div class="profile-section">
-        <h2 class="profile-section-title">
-            <i data-lucide="receipt"></i>
-            Transaction History
-        </h2>
-        <div class="profile-card">
-            <div class="profile-table-wrapper">
-                <table class="profile-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th class="col-amount">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for tx in transactions %}
-                        <tr>
-                            <td class="col-date">{{ tx.date }}</td>
-                            <td>{{ tx.description }}</td>
-                            <td><span class="category-badge category-badge--{{ tx.category }}">{{ tx.label }}</span></td>
-                            <td class="col-amount">{{ tx.amount }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    <!-- Transactions + Categories side by side -->
+    <div class="profile-content-grid">
 
-    <!-- Category Breakdown -->
-    <div class="profile-section">
-        <h2 class="profile-section-title">
-            <i data-lucide="pie-chart"></i>
-            Category Breakdown
-        </h2>
-        <div class="profile-card">
-            <div class="profile-categories">
-                {% for cat in categories %}
-                <div class="profile-category-row">
-                    <div class="profile-category-meta">
-                        <span class="category-badge category-badge--{{ cat.slug }}">{{ cat.name }}</span>
-                        <span class="profile-category-amount">{{ cat.amount }}</span>
-                    </div>
-                    <div class="category-bar">
-                        <div class="category-bar__fill" style="width: {{ cat.pct }}%"></div>
-                    </div>
+        <!-- Recent Transactions -->
+        <div class="profile-section">
+            <h2 class="profile-section-title">
+                <i data-lucide="receipt"></i>
+                Recent Transactions
+            </h2>
+            <div class="profile-card">
+                <div class="profile-table-wrapper">
+                    <table class="profile-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th class="col-amount">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tx in transactions %}
+                            <tr>
+                                <td class="col-date">{{ tx.date }}</td>
+                                <td>{{ tx.description }}</td>
+                                <td><span class="category-badge category-badge--{{ tx.category }}">{{ tx.label }}</span></td>
+                                <td class="col-amount">{{ tx.amount }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-                {% endfor %}
             </div>
         </div>
+
+        <!-- By Category -->
+        <div class="profile-section">
+            <h2 class="profile-section-title">
+                <i data-lucide="pie-chart"></i>
+                By Category
+            </h2>
+            <div class="profile-card">
+                <div class="profile-categories">
+                    {% for cat in categories %}
+                    <div class="profile-category-row">
+                        <div class="profile-category-meta">
+                            <span class="cat-label">{{ cat.name }}</span>
+                            <span class="profile-category-amount">{{ cat.amount }}</span>
+                        </div>
+                        <div class="category-bar">
+                            <div class="category-bar__fill category-bar__fill--{{ cat.slug }}" style="width: {{ cat.pct }}%"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>

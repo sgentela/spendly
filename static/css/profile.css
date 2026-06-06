@@ -115,6 +115,17 @@
 }
 
 /* ------------------------------------------------------------------ */
+/* Two-column content grid                                             */
+/* ------------------------------------------------------------------ */
+
+.profile-content-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* ------------------------------------------------------------------ */
 /* Section wrapper                                                     */
 /* ------------------------------------------------------------------ */
 
@@ -278,6 +289,12 @@
     font-variant-numeric: tabular-nums;
 }
 
+.cat-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+}
+
 .category-bar {
     height: 6px;
     background: var(--border-soft);
@@ -291,9 +308,23 @@
     border-radius: 999px;
 }
 
+.category-bar__fill--food        { background: var(--accent); }
+.category-bar__fill--health      { background: var(--danger); }
+.category-bar__fill--entertainment { background: #7c3aed; }
+.category-bar__fill--transport   { background: var(--accent-2); }
+.category-bar__fill--shopping    { background: #f59e0b; }
+.category-bar__fill--bills       { background: #8b5cf6; }
+.category-bar__fill--other       { background: var(--ink-muted); }
+
 /* ------------------------------------------------------------------ */
 /* Responsive                                                          */
 /* ------------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+    .profile-content-grid {
+        grid-template-columns: 1fr;
+    }
+}
 
 @media (max-width: 768px) {
     .profile-stats-grid {
