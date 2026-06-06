@@ -135,6 +135,34 @@
     gap: 0.75rem;
 }
 
+.profile-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.btn-add-expense {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--accent);
+    color: var(--paper) !important;
+    padding: 0.45rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.btn-add-expense:hover { background: var(--ink); }
+
+.btn-add-expense svg {
+    width: 14px;
+    height: 14px;
+}
+
 .profile-section-title {
     display: flex;
     align-items: center;
