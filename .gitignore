@@ -10,3 +10,6 @@ __pycache__/
 .DS_Store
 .claude/plans/
 .claude/worktrees/
+*.jpg
+*.db
+*.db*
