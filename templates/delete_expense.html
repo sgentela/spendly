@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Expense — Spendly{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/add_expense.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="add-expense-section">
+    <div class="add-expense-container">
+
+        <div class="auth-header">
+            <h1 class="auth-title">Delete expense</h1>
+            <p class="auth-subtitle">This action cannot be undone</p>
+        </div>
+
+        <div class="auth-card">
+            <dl class="expense-summary">
+                <dt>Amount</dt>
+                <dd>₹{{ expense.amount }}</dd>
+                <dt>Category</dt>
+                <dd>{{ expense.category }}</dd>
+                <dt>Date</dt>
+                <dd>{{ expense.date }}</dd>
+                {% if expense.description %}
+                <dt>Description</dt>
+                <dd>{{ expense.description }}</dd>
+                {% endif %}
+            </dl>
+
+            <form method="POST" action="{{ url_for('delete_expense', id=expense.id) }}">
+                <button type="submit" class="btn-submit">Yes, delete this expense</button>
+            </form>
+        </div>
+
+        <p class="auth-switch">
+            <a href="{{ url_for('profile') }}">← Cancel, back to profile</a>
+        </p>
+
+    </div>
+</section>
+{% endblock %}
