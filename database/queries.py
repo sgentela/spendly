@@ -79,7 +79,7 @@ def get_recent_transactions(
 ) -> list[dict]:
     conn = get_db()
     clause, date_params = _date_filter(date_range)
-    sql    = "SELECT date, description, category, amount FROM expenses WHERE user_id = ?" + clause
+    sql    = "SELECT id, date, description, category, amount FROM expenses WHERE user_id = ?" + clause
     params = [user_id] + date_params
     sql   += " ORDER BY date DESC, id DESC"
     if limit is not None:
@@ -91,6 +91,7 @@ def get_recent_transactions(
     for row in rows:
         slug, label = CATEGORY_MAP.get(row["category"], (row["category"].lower(), row["category"]))
         result.append({
+            "id":          row["id"],
             "date":        _fmt_date(row["date"]),
             "description": row["description"] or "",
             "category":    slug,
